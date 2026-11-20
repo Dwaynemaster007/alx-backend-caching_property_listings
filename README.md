@@ -856,6 +856,22 @@ def print_cache_metrics():
 
 ## 🧪 Testing
 
+### Automated tests
+
+With PostgreSQL and Redis running (`docker-compose up -d`):
+
+```bash
+python manage.py test properties
+```
+
+The tests cover the cached queryset, cache invalidation by the signals, the cached list view and the Redis metrics.
+
+> **Note:** `/properties/` has two cache layers. The signals clear the `all_properties` queryset cache straight away, but the view's whole response is cached by `@cache_page` for 15 minutes. A new property can therefore take up to 15 minutes to appear at that URL unless you run `python manage.py shell -c "from django.core.cache import cache; cache.clear()"`.
+
+### Settings
+
+Settings come from environment variables. The defaults match `docker-compose.yml`: `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_HOST`, `POSTGRES_PORT`, `REDIS_URL`, `SECRET_KEY`, `DEBUG` and `ALLOWED_HOSTS`.
+
 ### Test Cache Functionality
 
 ```bash

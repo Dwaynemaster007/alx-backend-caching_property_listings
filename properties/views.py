@@ -1,7 +1,5 @@
-from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.cache import cache_page
-from .models import Property
 from .utils import get_all_properties
 
 

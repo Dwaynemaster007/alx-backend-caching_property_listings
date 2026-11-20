@@ -6,4 +6,4 @@ class PropertiesConfig(AppConfig):
     name = 'properties'
 
     def ready(self):
-        import properties.signals
+        from . import signals  # noqa: F401  (connects the cache invalidation handlers)
